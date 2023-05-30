@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+
+<Problem>
+  <Included>
+    <File name="./base.xml"/>
+  </Included>
+
+  <!-- hexahedral mesh generated internally by GEOSX -->
+  <Mesh>
+    <InternalMesh
+      name="mesh"
+      elementTypes="{ C3D8 }"
+      xCoords="{ -300, 301 }"
+      yCoords="{ -300, 301 }"
+      zCoords="{ -300, 301 }"
+      nx="{ 150 }"
+      ny="{ 150 }"
+      nz="{ 150 }"
+      cellBlockNames="{ cb }"/>
+  </Mesh>
+
+  <Geometry>
+    <Box
+      name="zpos"
+      xMin="{ -300.01, -300.01, 300.99 }"
+      xMax="{ 301.01, 301.01, 301.01 }"/>
+    <Box
+      name="zneg"
+      xMin="{  -300.01,  -300.01,  -300.01 }"
+      xMax="{ 301.01, 301.01, -299.99 }"/>
+    <Box
+      name="xpos"
+      xMin="{ 300.99,  -300.01,  -300.01 }"
+      xMax="{ 301.01, 301.01, 301.01 }"/>
+    <Box
+      name="xneg"
+      xMin="{  -300.01,  -300.01,  -300.01 }"
+      xMax="{ -299.99, 301.01, 301.01 }"/>
+    <Box
+      name="ypos"
+      xMin="{  -300.01, 300.99,  -300.01 }"
+      xMax="{ 301.01, 301.01, 301.01 }"/>
+    <Box
+      name="yneg"
+      xMin="{   -300.01,  -300.01,  -300.01 }"
+      xMax="{ 301.01, -299.99,  301.01 }"/>
+  </Geometry>
+
+    <!-- The free surface condition the domain -->
+  <FieldSpecifications>
+    <FieldSpecification
+      name="zposFreeSurface"
+      objectPath="faceManager"
+      fieldName="FreeSurface"
+      scale="0.0"
+      setNames="{ zpos }"/>
+    <FieldSpecification
+      name="znegBottomSurface"
+      objectPath="faceManager"
+      fieldName="BottomSurface"
+      scale="0.0"
+      setNames="{ zneg }"/>
+    <FieldSpecification
+      name="LateralFreeSurface"
+      objectPath="faceManager"
+      fieldName="LateralSurface"
+      scale="0.0"
+      setNames="{ xpos, xneg, ypos, yneg }"/>
+    <FieldSpecification
+      name="Epsilon"
+      initialCondition="1"
+      objectPath="ElementRegions/Region/cb"
+      fieldName="epsilon"
+      scale="0.24"
+      setNames="{ all }"/>
+    <FieldSpecification
+      name="Delta"
+      initialCondition="1"
+      objectPath="ElementRegions/Region/cb"
+      fieldName="delta"
+      scale="0.1"
+      setNames="{ all }"/>
+    <FieldSpecification
+      name="f"
+      initialCondition="1"
+      objectPath="ElementRegions/Region/cb"
+      fieldName="f"
+      scale="1"
+      setNames="{ all }"/>
+  </FieldSpecifications>
+</Problem>
