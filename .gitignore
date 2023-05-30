@@ -1,0 +1,9 @@
+*.vtk
+*.hdf5
+*.vtm
+*.root
+*.vtu
+*.pvd
+*.avi
+*.jpg
+*.png
